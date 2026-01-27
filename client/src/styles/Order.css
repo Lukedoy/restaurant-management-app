@@ -1,0 +1,100 @@
+/* src/styles/Orders.css */
+.order-list h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+.order-header h3 {
+  font-size: 16px;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-badge.pending {
+  background: #ffeaa7;
+  color: #d63031;
+}
+
+.status-badge.confirmed {
+  background: #b2bec3;
+  color: #2d3436;
+}
+
+.status-badge.preparing {
+  background: #fdcb6e;
+  color: #e17055;
+}
+
+.status-badge.ready {
+  background: #a29bfe;
+  color: #6c5ce7;
+}
+
+.status-badge.served {
+  background: #74b9ff;
+  color: #0984e3;
+}
+
+.status-badge.completed {
+  background: #55efc4;
+  color: #00b894;
+}
+
+.order-details {
+  margin-bottom: 15px;
+}
+
+.order-details p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.status-select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
