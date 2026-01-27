@@ -2,7 +2,7 @@
 
 A comprehensive full-stack web application designed to automate and streamline restaurant operations. This system provides role-based access for different staff members (Admin, Waiter, Chef) and includes features for menu management, order processing, real-time updates, and sales analytics.
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -21,7 +21,7 @@ A comprehensive full-stack web application designed to automate and streamline r
 - [Contributing](#contributing)
 - [License](#license)
 
-## ✨ Features
+## Features
 
 ### Core Features
 - ✅ **User Authentication** - Secure login/registration with JWT tokens
@@ -54,7 +54,7 @@ A comprehensive full-stack web application designed to automate and streamline r
 - Update order status (preparing → ready)
 - Special requests display
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **React.js** - UI library for building interactive components
@@ -79,7 +79,7 @@ A comprehensive full-stack web application designed to automate and streamline r
 - **Git** - Version control
 - **VS Code** - Code editor
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 restaurant-management-app/
@@ -178,7 +178,7 @@ restaurant-management-app/
 └── README.md
 ```
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - **Node.js** v14.0.0 or higher
 - **npm** v6.0.0 or higher
@@ -186,7 +186,7 @@ restaurant-management-app/
 - **Git** (optional, for version control)
 - **Modern web browser** (Chrome, Firefox, Safari, Edge)
 
-## 🚀 Installation & Setup
+##  Installation & Setup
 
 ### Step 1: Clone/Download Repository
 
@@ -258,7 +258,7 @@ npm start
 
 Application will open at `http://localhost:3000` in your browser
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Backend Environment Variables
 
@@ -275,7 +275,7 @@ Application will open at `http://localhost:3000` in your browser
 |----------|-------------|---------|
 | `REACT_APP_API_URL` | Backend API URL | http://localhost:5000/api |
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ### Authentication Routes
 ```
@@ -306,7 +306,7 @@ GET    /api/admin/stats         - Dashboard statistics
 GET    /api/admin/sales-report  - Sales report
 ```
 
-## 📖 Usage Guide
+##  Usage Guide
 
 ### Initial Setup
 
@@ -362,7 +362,7 @@ Table.create([
 3. **Waiter**: Gets notification → Serves order → Updates status to "served"
 4. **Waiter**: Generates bill → Processes payment → Completes order
 
-## 👥 Role-Based Features
+##  Role-Based Features
 
 ### Admin
 - **Dashboard**: View statistics, total users, orders, revenue
@@ -387,7 +387,7 @@ Table.create([
 - **Special Requests**: View special requests/notes
 - **No Menu Access**: Cannot modify menu items
 
-## 💾 Database Schema
+##  Database Schema
 
 ### User Model
 ```javascript
@@ -451,7 +451,7 @@ Table.create([
 }
 ```
 
-## 🧪 Testing
+##  Testing
 
 ### Using Postman
 
@@ -499,7 +499,7 @@ Table.create([
    }
    ```
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 ### MongoDB Connection Error
 ```
@@ -552,7 +552,7 @@ Error: Invalid token
 - Login again to get new token
 - Verify `JWT_SECRET` matches between login and subsequent requests
 
-## 🌐 Deployment
+##  Deployment
 
 ### Backend Deployment (Heroku)
 
@@ -596,7 +596,7 @@ Error: Invalid token
 3. Get connection string
 4. Update `MONGODB_URI` in environment variables
 
-## 🚀 Future Enhancements
+##  Future Enhancements
 
 - [ ] SMS/Email notifications for orders
 - [ ] Kitchen Display System (KDS)
@@ -611,7 +611,7 @@ Error: Invalid token
 - [ ] Staff attendance tracking
 - [ ] Budget analytics
 
-## 👨‍💻 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/AmazingFeature`)
@@ -619,15 +619,15 @@ Error: Invalid token
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see LICENSE file for details.
 
-## 📞 Support
+## Support
 
-For support, email support@restaurant-app.com or create an issue in the repository.
+For support, email bhonemyatkyawthu9@gmail.com or create an issue in the repository.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Express.js documentation
 - MongoDB documentation
@@ -636,8 +636,8 @@ For support, email support@restaurant-app.com or create an issue in the reposito
 
 ---
 
-**Last Updated**: January 2024
+**Last Updated**: January 2026
 **Version**: 1.0.0
-**Author**: Restaurant App Team
+**Author**: Bhone Myat Kyaw Thu
 
-For more information, visit the [Project Wiki](https://github.com/your-repo/wiki)
+For more information, visit the [Project Wiki](https://github.com/Lukedoy/restaurant-management-app/wiki)
