@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
@@ -29,7 +30,7 @@ const AppContent = () => {
         <main className="main-content">
           <Routes>
             <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/dashboard" />} />
-            <Route path="/register" element={!user ? <LoginPage /> : <Navigate to="/dashboard" />} />
+            <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/dashboard" />} />
             
             <Route path="/menu" element={<HomePage />} />
             
