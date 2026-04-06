@@ -1,4 +1,4 @@
-// src/components/Admin/SalesReport.jsx
+
 import React, { useEffect, useState } from 'react';
 import { adminService } from '../../services/adminService';
 import '../../styles/Admin.css';
@@ -33,7 +33,7 @@ const SalesReport = () => {
       
       <div className="total-sales-card">
         <h3>Total Sales</h3>
-        <p className="sales-value">₹{totalSales.toLocaleString()}</p>
+        <p className="sales-value">€{totalSales.toLocaleString()}</p>
       </div>
 
       <div className="sales-table">
@@ -49,7 +49,7 @@ const SalesReport = () => {
             {Object.entries(salesData || {}).map(([date, amount]) => (
               <tr key={date}>
                 <td>{new Date(date).toLocaleDateString()}</td>
-                <td>₹{amount.toLocaleString()}</td>
+                <td>€{amount.toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

@@ -1,4 +1,4 @@
-// src/pages/LoginPage.jsx
+
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
@@ -51,6 +51,9 @@ const LoginPage = () => {
         </form>
         <p className="toggle-form">
           Don't have an account? <a href="/register">Register</a>
+        </p>
+        <p className="toggle-form">
+          <a href="/menu">Browse Menu as Customer</a>
         </p>
       </div>
     </div>

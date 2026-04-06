@@ -1,4 +1,4 @@
-// src/components/Chef/ChefDashboard.jsx
+
 import React from 'react';
 import OrderQueue from './OrderQueue';
 import '../../styles/Chef.css';

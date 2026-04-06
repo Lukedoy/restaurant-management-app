@@ -1,11 +1,10 @@
-// src/pages/HomePage.jsx
 import React from 'react';
-import MenuDisplay from '../components/Menu/MenuDisplay';
+import CustomerOrder from '../components/Customer/CustomerOrder';
 
 const HomePage = () => {
   return (
     <div className="home-page">
-      <MenuDisplay />
+      <CustomerOrder />
     </div>
   );
 };

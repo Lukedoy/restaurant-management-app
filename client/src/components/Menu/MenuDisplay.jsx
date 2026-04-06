@@ -1,4 +1,4 @@
-// src/components/Menu/MenuDisplay.jsx
+
 import React, { useEffect, useState } from 'react';
 import { menuService } from '../../services/menuService';
 import MenuItem from './MenuItem';

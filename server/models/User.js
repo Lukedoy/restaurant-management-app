@@ -1,4 +1,4 @@
-// models/User.js
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -8,10 +8,10 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { 
     type: String, 
-    enum: ['admin', 'waiter', 'chef', 'customer'],
+    enum: ['admin', 'waiter', 'chef'],
     default: 'waiter'
   },
-  status: { type: String, enum: ['active', 'inactive'], default: 'active' },
+  status: { type: String, enum: ['active', 'inactive', 'pending'], default: 'active' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

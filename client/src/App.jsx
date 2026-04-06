@@ -1,11 +1,13 @@
-// src/App.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthContext, AuthProvider } from './context/AuthContext';
-import { OrderProvider } from './context/OrderContext';
+import { NotificationProvider } from './context/NotificationContext';
+import ErrorBoundary from './components/common/ErrorBoundary';
+import ToastContainer from './components/common/ToastContainer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import { connectSocket, disconnectSocket } from './services/socket';
 
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -14,26 +16,45 @@ import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
 import ChefPage from './pages/ChefPage';
 import WaiterPage from './pages/WaiterPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 import './App.css';
+import './styles/Common.css';
 
 const AppContent = () => {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <div className="loading-screen">Loading...</div>;
+  useEffect(() => {
+    if (user) {
+      connectSocket();
+    }
+    return () => disconnectSocket();
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="loading-screen" role="status" aria-live="polite">
+        <div className="loading-screen-content">
+          <div className="loading-screen-spinner"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Router>
+      <a href="#main-content" className="skip-to-content">Skip to main content</a>
       {user && <Navbar />}
       <div className="app-container">
         {user && <Sidebar />}
-        <main className="main-content">
+        <main className="main-content" id="main-content" role="main">
           <Routes>
             <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/dashboard" />} />
             <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/dashboard" />} />
-            
+
             <Route path="/menu" element={<HomePage />} />
-            
+
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <DashboardPage />
@@ -59,24 +80,25 @@ const AppContent = () => {
             } />
 
             <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
       </div>
+      <ToastContainer />
     </Router>
   );
 };
 
 function App() {
   return (
-    <AuthProvider>
-      <OrderProvider>
-        <AppContent />
-      </OrderProvider>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <NotificationProvider>
+          <AppContent />
+        </NotificationProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
 export default App;
-
-
-

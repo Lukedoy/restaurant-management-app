@@ -1,7 +1,7 @@
-// src/components/Menu/MenuItem.jsx
-import React, { useState } from 'react';
 
-const MenuItem = ({ item, onAddToCart }) => {
+import React from 'react';
+
+const MenuItem = ({ item }) => {
   return (
     <div className="menu-item-card">
       {item.image && <img src={item.image} alt={item.name} className="item-image" />}
@@ -9,10 +9,7 @@ const MenuItem = ({ item, onAddToCart }) => {
       <p className="description">{item.description}</p>
       <p className="category">{item.category}</p>
       <div className="item-footer">
-        <span className="price">₹{item.price}</span>
-        {onAddToCart && (
-          <button onClick={() => onAddToCart(item)} className="add-btn">Add</button>
-        )}
+        <span className="price">€{item.price}</span>
       </div>
     </div>
   );

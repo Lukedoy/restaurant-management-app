@@ -1,4 +1,4 @@
-// src/services/adminService.js
+
 import apiCall from './api';
 
 export const adminService = {

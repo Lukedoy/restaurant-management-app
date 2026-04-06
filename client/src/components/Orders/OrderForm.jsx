@@ -1,4 +1,4 @@
-// src/components/Orders/OrderForm.jsx
+
 import React, { useState, useEffect } from 'react';
 import { menuService } from '../../services/menuService';
 import { orderService } from '../../services/orderService';
@@ -81,10 +81,10 @@ const OrderForm = () => {
           menuItemId: item._id,
           name: item.name,
           quantity: item.quantity,
-          price: item.price
+          price: item.price,
+          specialRequests: item.specialRequests || ''
         })),
-        totalAmount: calculateTotal(),
-        waiterId: JSON.parse(localStorage.getItem('user'))?._id
+        totalAmount: calculateTotal()
       };
 
       await orderService.createOrder(orderData, token);
@@ -122,7 +122,7 @@ const OrderForm = () => {
               <div key={item._id} className="menu-item-row">
                 <div className="item-info">
                   <h4>{item.name}</h4>
-                  <p>₹{item.price}</p>
+                  <p>€{item.price}</p>
                 </div>
                 <button
                   type="button"
@@ -152,7 +152,7 @@ const OrderForm = () => {
                 <div key={item._id} className="summary-item">
                   <div className="item-details">
                     <h4>{item.name}</h4>
-                    <p>₹{item.price} x {item.quantity}</p>
+                    <p>€{item.price} x {item.quantity}</p>
                   </div>
                   <div className="quantity-control">
                     <button
@@ -169,6 +169,15 @@ const OrderForm = () => {
                       +
                     </button>
                   </div>
+                  <input
+                    type="text"
+                    placeholder="Special requests..."
+                    value={item.specialRequests || ''}
+                    onChange={(e) => setSelectedItems(selectedItems.map(i =>
+                      i._id === item._id ? { ...i, specialRequests: e.target.value } : i
+                    ))}
+                    className="special-requests-input"
+                  />
                   <button
                     onClick={() => handleRemoveItem(item._id)}
                     className="remove-btn"
@@ -180,7 +189,7 @@ const OrderForm = () => {
             </div>
 
             <div className="summary-total">
-              <h3>Total: ₹{calculateTotal()}</h3>
+              <h3>Total: €{calculateTotal()}</h3>
             </div>
 
             <button

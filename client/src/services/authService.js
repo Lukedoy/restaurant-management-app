@@ -1,4 +1,4 @@
-// src/services/authService.js
+
 import apiCall from './api';
 
 export const authService = {

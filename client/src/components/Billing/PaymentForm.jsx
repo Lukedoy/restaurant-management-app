@@ -1,8 +1,9 @@
-// src/components/Billing/PaymentForm.jsx
+
 import React, { useState } from 'react';
+import apiCall from '../../services/api';
 import '../../styles/Billing.css';
 
-const PaymentForm = ({ orderId, totalAmount, onPaymentSuccess }) => {
+const PaymentForm = ({ orderId, totalAmount, discount = 0, onPaymentSuccess }) => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [cardDetails, setCardDetails] = useState({
     cardNumber: '',
@@ -52,26 +53,14 @@ const PaymentForm = ({ orderId, totalAmount, onPaymentSuccess }) => {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/payment`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          paymentMethod,
-          paymentStatus: 'completed'
-        })
+      await apiCall('PUT', `/orders/${orderId}/payment`, {
+        paymentMethod,
+        paymentStatus: 'completed',
+        discount
       });
-
-      if (response.ok) {
-        onPaymentSuccess && onPaymentSuccess();
-      } else {
-        setError('Payment failed. Please try again.');
-      }
+      onPaymentSuccess && onPaymentSuccess();
     } catch (err) {
-      setError('Error processing payment');
+      setError(err.message || 'Error processing payment');
     } finally {
       setLoading(false);
     }
@@ -164,13 +153,13 @@ const PaymentForm = ({ orderId, totalAmount, onPaymentSuccess }) => {
         )}
 
         <div className="payment-amount">
-          <h4>Total Amount: ₹{totalAmount.toFixed(2)}</h4>
+          <h4>Total Amount: €{totalAmount.toFixed(2)}</h4>
         </div>
 
         {error && <div className="error-message">{error}</div>}
 
         <button type="submit" className="pay-btn" disabled={loading}>
-          {loading ? 'Processing...' : `Pay ₹${totalAmount.toFixed(2)}`}
+          {loading ? 'Processing...' : `Pay €${totalAmount.toFixed(2)}`}
         </button>
       </form>
     </div>

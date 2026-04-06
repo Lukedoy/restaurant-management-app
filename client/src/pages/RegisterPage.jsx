@@ -1,4 +1,4 @@
-// src/pages/RegisterPage.jsx
+
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/authService';
@@ -14,6 +14,7 @@ const RegisterPage = () => {
     role: 'waiter'
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -35,15 +36,21 @@ const RegisterPage = () => {
     }
 
     setLoading(true);
+    setError('');
+    setSuccess('');
     try {
-      const { token, user } = await authService.register(
+      const response = await authService.register(
         formData.name,
         formData.email,
         formData.password,
         formData.role
       );
-      login(user, token);
-      navigate('/dashboard');
+      if (response.pending || formData.role === 'admin') {
+        setSuccess(response.message || 'Admin account created. An existing administrator must approve your account before you can log in.');
+      } else {
+        login(response.user, response.token);
+        navigate('/dashboard');
+      }
     } catch (err) {
       setError(err.message || 'Registration failed');
     } finally {
@@ -108,8 +115,12 @@ const RegisterPage = () => {
               <option value="admin">Admin</option>
             </select>
           </div>
+          {formData.role === 'admin' && (
+            <div className="info-message">Admin accounts require approval from an existing administrator before you can log in.</div>
+          )}
           {error && <div className="error-message">{error}</div>}
-          <button type="submit" className="submit-btn" disabled={loading}>
+          {success && <div className="success-message">{success}</div>}
+          <button type="submit" className="submit-btn" disabled={loading || success}>
             {loading ? 'Registering...' : 'Register'}
           </button>
         </form>

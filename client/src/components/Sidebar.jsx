@@ -1,36 +1,29 @@
-// src/components/Sidebar.jsx
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import '../styles/Sidebar.css';
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
 
   const getMenuItems = () => {
-    const baseItems = [{ label: 'Menu', path: '/menu' }];
+    const baseItems = [{ label: 'Menu', path: '/menu', icon: '🍽️' }];
 
     switch (user?.role) {
       case 'admin':
         return [
-          { label: 'Dashboard', path: '/admin' },
-          { label: 'Menu Management', path: '/admin/menu' },
-          { label: 'Orders', path: '/orders' },
-          { label: 'Users', path: '/admin/users' },
-          { label: 'Analytics', path: '/admin/analytics' },
+          { label: 'Dashboard', path: '/admin', icon: '📊' },
+          { label: 'Menu', path: '/menu', icon: '🍽️' },
         ];
       case 'waiter':
         return [
-          { label: 'Dashboard', path: '/waiter' },
-          { label: 'Tables', path: '/waiter/tables' },
-          { label: 'Orders', path: '/orders' },
+          { label: 'Dashboard', path: '/waiter', icon: '📋' },
           ...baseItems,
         ];
       case 'chef':
         return [
-          { label: 'Dashboard', path: '/chef' },
-          { label: 'Order Queue', path: '/chef/queue' },
-          { label: 'Completed Orders', path: '/chef/completed' },
+          { label: 'Dashboard', path: '/chef', icon: '👨‍🍳' },
         ];
       default:
         return baseItems;
@@ -38,14 +31,23 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="sidebar">
-      <ul className="sidebar-menu">
-        {getMenuItems().map((item) => (
-          <li key={item.path}>
-            <Link to={item.path}>{item.label}</Link>
-          </li>
-        ))}
-      </ul>
+    <aside className="sidebar" role="navigation" aria-label="Sidebar navigation">
+      <nav>
+        <ul className="sidebar-menu">
+          {getMenuItems().map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={location.pathname === item.path ? 'active' : ''}
+                aria-current={location.pathname === item.path ? 'page' : undefined}
+              >
+                <span className="sidebar-icon" aria-hidden="true">{item.icon}</span>
+                <span className="sidebar-label">{item.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </aside>
   );
 };

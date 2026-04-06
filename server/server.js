@@ -16,12 +16,18 @@ const io = socketIO(server, {
   }
 });
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+app.set('io', io);
+
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Database Connection
+const { sanitizeBody } = require('./middleware/validate');
+app.use(sanitizeBody);
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/restaurant-app');
@@ -34,13 +40,17 @@ const connectDB = async () => {
 
 connectDB();
 
-// Routes
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', env: process.env.NODE_ENV || 'development' });
+});
+
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/menu', require('./routes/menu'));
 app.use('/api/orders', require('./routes/orders'));
+app.use('/api/tables', require('./routes/tables'));
+app.use('/api/users', require('./routes/users'));
 app.use('/api/admin', require('./routes/admin'));
 
-// Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({
@@ -49,7 +59,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Socket.IO Events
 io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
 

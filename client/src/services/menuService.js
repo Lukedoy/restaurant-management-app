@@ -1,13 +1,12 @@
-// src/services/menuService.js
+
 import apiCall from './api';
 
 export const menuService = {
-  getAllMenuItems: async () => {
-    return apiCall('GET', '/menu');
-  },
-
-  getMenuItemById: async (id) => {
-    return apiCall('GET', `/menu/${id}`);
+  getAllMenuItems: async (params = {}) => {
+    const query = new URLSearchParams();
+    if (params.all) query.set('all', 'true');
+    const qs = query.toString();
+    return apiCall('GET', `/menu${qs ? `?${qs}` : ''}`);
   },
 
   createMenuItem: async (data, token) => {

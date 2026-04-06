@@ -1,15 +1,8 @@
-// src/pages/WaiterPage.jsx
 import React from 'react';
-import OrderList from '../components/Orders/OrderList';
-import '../styles/Dashboard.css';
+import WaiterDashboard from '../components/Waiter/WaiterDashboard';
 
 const WaiterPage = () => {
-  return (
-    <div className="waiter-page">
-      <h1>Waiter Dashboard</h1>
-      <OrderList />
-    </div>
-  );
+  return <WaiterDashboard />;
 };
 
 export default WaiterPage;
