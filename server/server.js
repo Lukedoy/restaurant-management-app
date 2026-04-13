@@ -9,9 +9,15 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://restaurant-management-app-mu.vercel.app',
+];
+
 const io = socketIO(server, {
   cors: {
-    origin: 'https://restaurant-management-app-mu.vercel.app',
+    origin: allowedOrigins,
     credentials: true,
     methods: ['GET', 'POST']
   }
@@ -20,7 +26,7 @@ const io = socketIO(server, {
 app.set('io', io);
 
 app.use(cors({
-  origin: 'https://restaurant-management-app-mu.vercel.app',
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
