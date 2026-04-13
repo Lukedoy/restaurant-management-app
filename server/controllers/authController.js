@@ -27,7 +27,13 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    const status = role === 'admin' ? 'pending' : 'active';
+    let status = 'active';
+    if (role === 'admin') {
+      // Bootstrap: the very first admin is auto-approved since no one exists to approve them.
+      const activeAdminCount = await User.countDocuments({ role: 'admin', status: 'active' });
+      status = activeAdminCount === 0 ? 'active' : 'pending';
+    }
+
     const user = new User({ name, email, password, role, status });
     await user.save();
 
