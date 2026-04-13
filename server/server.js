@@ -11,7 +11,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: 'https://restaurant-management-app-mu.vercel.app/',
+    credentials: true,
     methods: ['GET', 'POST']
   }
 });
@@ -19,7 +20,7 @@ const io = socketIO(server, {
 app.set('io', io);
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: 'https://restaurant-management-app-mu.vercel.app/',
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
