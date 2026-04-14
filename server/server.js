@@ -15,9 +15,18 @@ const allowedOrigins = [
   'https://restaurant-management-app-mu.vercel.app',
 ];
 
+const corsOriginCheck = (origin, callback) => {
+  if (!origin) return callback(null, true);
+  if (allowedOrigins.includes(origin)) return callback(null, true);
+  if (/^https:\/\/restaurant-management-app.*\.vercel\.app$/.test(origin)) {
+    return callback(null, true);
+  }
+  return callback(new Error(`Origin ${origin} not allowed by CORS`));
+};
+
 const io = socketIO(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: corsOriginCheck,
     credentials: true,
     methods: ['GET', 'POST']
   }
@@ -26,7 +35,7 @@ const io = socketIO(server, {
 app.set('io', io);
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: corsOriginCheck,
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
